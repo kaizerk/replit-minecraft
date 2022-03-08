@@ -2,6 +2,8 @@
 
 # Minecraft version
 VERSION=1.16.3
+version=1.16
+name=paper
 
 set -e
 root=$PWD
@@ -26,7 +28,19 @@ download() {
     #rm -rf jre.tar.gz
     #mv ./jre* ./jre
     #echo JRE downloaded
-    wget -O server.jar "https://papermc.io/api/v2/projects/paper/versions/1.17.1/builds/388/downloads/paper-1.17.1-388.jar"
+    api=https://papermc.io/api/v2
+
+    # Get the build number of the most recent build
+    latest_build="$(curl -sX GET "$api"/projects/"$name"/version_group/"$version"/builds -H 'accept: application/json' | jq '.builds [-1].build')"
+    VERSION="$(curl -sX GET "$api"/projects/"$name"/version_group/"$version"/builds -H 'accept: application/json' | jq -r '.builds [-1].version')"
+
+echo "Version is "$VERSION
+    # Construct download URL
+    download_url="$api"/projects/"$name"/versions/"$VERSION"/builds/"$latest_build"/downloads/"$name"-"$VERSION"-"$latest_build".jar
+
+    # Download file
+    wget -O server.jar "$download_url"
+
     echo Paper downloaded
     curl -o server.properties "https://files.mikeylab.com/xpire/server.properties"
     echo Server properties downloaded
