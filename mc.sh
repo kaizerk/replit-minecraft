@@ -28,7 +28,7 @@ download() {
     #echo JRE downloaded
     wget -O server.jar "https://papermc.io/api/v1/paper/$VERSION/latest/download"
     echo Paper downloaded
-    wget -O server.properties "https://files.mikeylab.com/xpire/server.properties"
+    curl -o server.properties "https://files.mikeylab.com/xpire/server.properties"
     echo Server properties downloaded
     echo "eula=true" > eula.txt
     echo Agreed to Mojang EULA
