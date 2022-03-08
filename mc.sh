@@ -26,7 +26,7 @@ download() {
     #rm -rf jre.tar.gz
     #mv ./jre* ./jre
     #echo JRE downloaded
-    wget -O server.jar "https://papermc.io/api/v1/paper/$VERSION/latest/download"
+    wget -O server.jar "https://papermc.io/api/v2/projects/paper/versions/1.17.1/builds/388/downloads/paper-1.17.1-388.jar"
     echo Paper downloaded
     curl -o server.properties "https://files.mikeylab.com/xpire/server.properties"
     echo Server properties downloaded
